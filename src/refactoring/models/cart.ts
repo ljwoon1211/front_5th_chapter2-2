@@ -1,4 +1,4 @@
-import { CartItem, Coupon } from "../../types";
+import { CartItem, Coupon, Product } from "../../types";
 
 export const calculateItemTotal = (item: CartItem) => {
   const { price } = item.product;
@@ -6,11 +6,13 @@ export const calculateItemTotal = (item: CartItem) => {
   return price * quantity;
 };
 
+/**
+ * 수량에 따른 최대 할인율 계산
+ */
 export const getMaxApplicableDiscount = (item: CartItem) => {
   const { discounts } = item.product;
   const { quantity } = item;
 
-  // 수량에 따른 할인율
   return discounts.reduce((maxDiscount, discount) => {
     return quantity >= discount.quantity && discount.rate > maxDiscount
       ? discount.rate
@@ -18,7 +20,9 @@ export const getMaxApplicableDiscount = (item: CartItem) => {
   }, 0);
 };
 
-// 장바구니 전체 금액을 계산하는 함수 (할인 전, 할인 후, 총 할인액)
+/**
+ * 장바구니 전체 금액을 계산하는 함수 (할인 전, 할인 후, 총 할인액)
+ */
 export const calculateCartTotal = (
   cart: CartItem[],
   selectedCoupon: Coupon | null
@@ -55,6 +59,9 @@ export const calculateCartTotal = (
   };
 };
 
+/**
+ * 장바구니 수량 업데이트 함수
+ */
 export const updateCartItemQuantity = (
   cart: CartItem[],
   productId: string,
@@ -68,3 +75,11 @@ export const updateCartItemQuantity = (
 };
 
 
+export const getRemainingStock = (product: Product, cart: CartItem[]) => {
+  const cartItem = cart.find((item) => item.product.id === product.id);
+  return product.stock - (cartItem?.quantity || 0);
+};
+
+export const getMaxDiscountRate = (discounts: { quantity: number; rate: number }[]) => {
+  return discounts.reduce((max, discount) => Math.max(max, discount.rate), 0);
+};
