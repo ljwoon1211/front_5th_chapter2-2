@@ -1,9 +1,18 @@
 import { CartItem, Coupon, Product } from "../../types";
 
-export const calculateItemTotal = (item: CartItem) => {
+export const calculateBaseItemTotal = (item: CartItem) => {
   const { price } = item.product;
   const { quantity } = item;
   return price * quantity;
+}
+
+export const calculateItemTotal = (item: CartItem) => {
+  const baseTotal = calculateBaseItemTotal(item)
+  // 할인율 적용
+  const discountRate = getMaxApplicableDiscount(item);
+  const discountedTotal = baseTotal * (1 - discountRate);
+
+  return discountedTotal;
 };
 
 /**
@@ -31,7 +40,7 @@ export const calculateCartTotal = (
   let totalAfterDiscount = 0;
 
   cart.forEach((item) => {
-    const itemTotal = calculateItemTotal(item);
+    const itemTotal = calculateBaseItemTotal(item);
     totalBeforeDiscount += itemTotal;
 
     const discountRate = getMaxApplicableDiscount(item);
@@ -67,19 +76,33 @@ export const updateCartItemQuantity = (
   productId: string,
   newQuantity: number
 ): CartItem[] => {
-  return cart.map(item =>
-    item.product.id === productId
-      ? { ...item, quantity: newQuantity }
-      : item
-  );
+  return cart.map((item) => {
+    if (item.product.id === productId) {
+      const maxQuantity = item.product.stock;
+      const updatedQuantity = Math.max(
+        0,
+        Math.min(newQuantity, maxQuantity)
+      );
+      return updatedQuantity > 0
+        ? { ...item, quantity: updatedQuantity }
+        : null;
+    }
+    return item;
+  })
+    .filter((item): item is CartItem => item !== null)
 };
 
-
+/**
+ * 남은 재고 함수
+ */
 export const getRemainingStock = (product: Product, cart: CartItem[]) => {
   const cartItem = cart.find((item) => item.product.id === product.id);
   return product.stock - (cartItem?.quantity || 0);
 };
 
+/**
+ * 최대 할인율
+ */
 export const getMaxDiscountRate = (discounts: { quantity: number; rate: number }[]) => {
   return discounts.reduce((max, discount) => Math.max(max, discount.rate), 0);
 };
