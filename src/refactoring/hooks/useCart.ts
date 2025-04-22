@@ -1,14 +1,14 @@
-// useCart.ts
-import { useState } from "react";
-import { CartItem, Coupon, Product } from "../../types";
-import { calculateCartTotal, getRemainingStock, updateCartItemQuantity } from "../models/cart";
+import { CartItem, Product } from "../../types";
+import { getRemainingStock, updateCartItemQuantity } from "../models/cart";
 import { useLocalStorage } from "./useLocalStorage";
+import { useDiscountCalculator } from "./useDiscountCalculator";
 
 
 export const useCart = () => {
+  // const [cart, setCart] = useState<CartItem[]>([]);
   const [cart, setCart] = useLocalStorage<CartItem[]>('cart', []);
-  const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
-
+  // const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
+  const { selectedCoupon, applyCoupon, calculateDiscountTotal } = useDiscountCalculator()
 
   const addToCart = (product: Product) => {
     const remainingStock = getRemainingStock(product, cart);
@@ -37,12 +37,8 @@ export const useCart = () => {
     )
   };
 
-  const applyCoupon = (coupon: Coupon) => {
-    setSelectedCoupon(coupon);
-  };
-
   const calculateTotal = () => {
-    return calculateCartTotal(cart, selectedCoupon);
+    return calculateDiscountTotal(cart);
   };
 
   return {

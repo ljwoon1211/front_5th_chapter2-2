@@ -1,14 +1,19 @@
 import { CartItem, Coupon, Product } from "../../types";
 
+/**
+ * 가격 * 수량
+ */
 export const calculateBaseItemTotal = (item: CartItem) => {
   const { price } = item.product;
   const { quantity } = item;
   return price * quantity;
 }
 
+/**
+ * (가격 * 수량) * 할인적용된 가격
+ */
 export const calculateItemTotal = (item: CartItem) => {
   const baseTotal = calculateBaseItemTotal(item)
-  // 할인율 적용
   const discountRate = getMaxApplicableDiscount(item);
   const discountedTotal = baseTotal * (1 - discountRate);
 
