@@ -36,7 +36,6 @@ export const useDiscountCalculator = () => {
   const calculateItemDiscountAmount = (item: CartItem): number => {
     const baseTotal = calculateBaseItemTotal(item);
     const discountRate = getAppliedProductDiscount(item);
-
     return baseTotal * discountRate;
   };
 
