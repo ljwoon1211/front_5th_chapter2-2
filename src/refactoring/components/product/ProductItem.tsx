@@ -1,6 +1,7 @@
-import { Product } from "../../types";
-import { getMaxDiscountRate } from "../models/cart";
-import { DiscountList } from "./DiscountList";
+import { Product } from "../../../types";
+import { getMaxDiscountRate } from "../../models/cart";
+import { DiscountList } from "../common/DiscountList";
+// import { DiscountList } from "./DiscountList";
 
 interface ProductItemProps {
   product: Product;

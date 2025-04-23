@@ -1,5 +1,5 @@
-import { CartItem, Product } from "../../types";
-import { getMaxDiscountRate, getRemainingStock } from "../models/cart";
+import { CartItem, Product } from "../../../types";
+import { getRemainingStock } from "../../models/cart";
 import { ProductItem } from "./ProductItem";
 
 interface ProductListProps {

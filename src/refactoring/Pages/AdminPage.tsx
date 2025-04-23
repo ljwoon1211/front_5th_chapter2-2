@@ -1,6 +1,4 @@
-import { useState } from "react";
-import { Coupon, Discount, Product } from "../../types.ts";
-import { useProductManagement } from "../hooks/useProductManagement.ts";
+import { Coupon, Product } from "../../types.ts";
 import { ProductManager } from "../components/admin/ProductManager.tsx";
 import { CouponManager } from "../components/admin/CouponManager.tsx";
 

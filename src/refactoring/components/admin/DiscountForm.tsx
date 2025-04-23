@@ -1,4 +1,5 @@
 import { Discount } from "../../../types";
+import { DiscountList } from "../common/DiscountList";
 
 interface DiscountFormProps {
   discounts: Discount[];
@@ -23,6 +24,7 @@ export const DiscountForm = ({
       <DiscountList
         discounts={discounts}
         productId={productId}
+        editable={true}
         onRemoveDiscount={onRemoveDiscount}
       />
       <div className="flex space-x-2">
@@ -58,35 +60,5 @@ export const DiscountForm = ({
         </button>
       </div>
     </div>
-  );
-};
-
-interface DiscountListProps {
-  discounts: Discount[];
-  productId: string;
-  onRemoveDiscount: (productId: string, index: number) => void;
-}
-
-const DiscountList = ({
-  discounts,
-  productId,
-  onRemoveDiscount,
-}: DiscountListProps) => {
-  return (
-    <>
-      {discounts.map((discount, index) => (
-        <div key={index} className="flex justify-between items-center mb-2">
-          <span>
-            {discount.quantity}개 이상 구매 시 {discount.rate * 100}% 할인
-          </span>
-          <button
-            onClick={() => onRemoveDiscount(productId, index)}
-            className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-          >
-            삭제
-          </button>
-        </div>
-      ))}
-    </>
   );
 };

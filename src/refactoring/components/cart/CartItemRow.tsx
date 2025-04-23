@@ -1,5 +1,5 @@
-import { CartItem } from "../../types";
-import { getMaxApplicableDiscount } from "../models/cart";
+import { CartItem } from "../../../types";
+import { getMaxApplicableDiscount } from "../../models/cart";
 
 interface CartItemRowProps {
   item: CartItem;

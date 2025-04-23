@@ -1,4 +1,5 @@
 import { Product } from "../../../types";
+import { FormField } from "../common/FormField";
 
 interface ProductFormProps {
   product: Omit<Product, "id"> | Product;
@@ -18,63 +19,36 @@ export const ProductForm = ({
       <h3 className="text-xl font-semibold mb-2">
         {submitLabel === "추가" ? "새 상품 추가" : "상품 수정"}
       </h3>
-      <div className="mb-2">
-        <label
-          htmlFor="productName"
-          className="block text-sm font-medium text-gray-700"
-        >
-          상품명
-        </label>
-        <input
-          id="productName"
-          type="text"
-          value={product.name}
-          onChange={(e) =>
-            onProductChange({ ...product, name: e.target.value })
-          }
-          className="w-full p-2 border rounded"
-        />
-      </div>
-      <div className="mb-2">
-        <label
-          htmlFor="productPrice"
-          className="block text-sm font-medium text-gray-700"
-        >
-          가격
-        </label>
-        <input
-          id="productPrice"
-          type="number"
-          value={product.price}
-          onChange={(e) =>
-            onProductChange({
-              ...product,
-              price: parseInt(e.target.value),
-            })
-          }
-          className="w-full p-2 border rounded"
-        />
-      </div>
-      <div className="mb-2">
-        <label
-          htmlFor="productStock"
-          className="block text-sm font-medium text-gray-700"
-        >
-          재고
-        </label>
-        <input
-          id="productStock"
-          type="number"
-          value={product.stock}
-          onChange={(e) =>
-            onProductChange({
-              ...product,
-              stock: parseInt(e.target.value),
-            })
-          }
-          className="w-full p-2 border rounded"
-        />
-      </div>
+      <FormField
+        label="상품명"
+        id="productName"
+        type="text"
+        value={product.name}
+        onChange={(value) => onProductChange({ ...product, name: value })}
+        className="mb-2"
+      />
+
+      <FormField
+        label="가격"
+        id="productPrice"
+        type="number"
+        value={product.price}
+        onChange={(value) =>
+          onProductChange({ ...product, price: parseInt(value) })
+        }
+        className="mb-2"
+      />
+
+      <FormField
+        label="재고"
+        id="productStock"
+        type="number"
+        value={product.stock}
+        onChange={(value) =>
+          onProductChange({ ...product, stock: parseInt(value) })
+        }
+        className="mb-2"
+      />
       <button
         onClick={onSubmit}
         className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"

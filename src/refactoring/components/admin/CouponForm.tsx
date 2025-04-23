@@ -1,4 +1,5 @@
 import { Coupon } from "../../../types";
+import { FormField } from "../common/FormField";
 
 interface CouponFormProps {
   coupon: Coupon;
@@ -13,20 +14,22 @@ export const CouponForm = ({
 }: CouponFormProps) => {
   return (
     <div className="space-y-2 mb-4">
-      <input
+      <FormField
+        label="쿠폰 이름"
         type="text"
-        placeholder="쿠폰 이름"
         value={coupon.name}
-        onChange={(e) => onCouponChange({ ...coupon, name: e.target.value })}
-        className="w-full p-2 border rounded"
+        onChange={(value) => onCouponChange({ ...coupon, name: value })}
+        placeholder="쿠폰 이름"
       />
-      <input
+
+      <FormField
+        label="쿠폰 코드"
         type="text"
-        placeholder="쿠폰 코드"
         value={coupon.code}
-        onChange={(e) => onCouponChange({ ...coupon, code: e.target.value })}
-        className="w-full p-2 border rounded"
+        onChange={(value) => onCouponChange({ ...coupon, code: value })}
+        placeholder="쿠폰 코드"
       />
+
       <div className="flex gap-2">
         <select
           value={coupon.discountType}
@@ -41,17 +44,17 @@ export const CouponForm = ({
           <option value="amount">금액(원)</option>
           <option value="percentage">할인율(%)</option>
         </select>
-        <input
+
+        <FormField
           type="number"
-          placeholder="할인 값"
           value={coupon.discountValue}
-          onChange={(e) =>
+          onChange={(value) =>
             onCouponChange({
               ...coupon,
-              discountValue: parseInt(e.target.value),
+              discountValue: parseInt(value),
             })
           }
-          className="w-full p-2 border rounded"
+          placeholder="할인 값"
         />
       </div>
       <button
