@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { CartItem, Coupon } from '../../types';
 import { calculateBaseItemTotal, calculateCartTotal, getMaxApplicableDiscount } from '../models/cart';
 
@@ -12,9 +12,9 @@ export const useDiscountCalculator = () => {
   /**
    * 쿠폰 적용
    */
-  const applyCoupon = (coupon: Coupon) => {
+  const applyCoupon = useCallback((coupon: Coupon) => {
     setSelectedCoupon(coupon);
-  };
+  }, []);
 
   /**
    * 장바구니의 최종 금액을 계산

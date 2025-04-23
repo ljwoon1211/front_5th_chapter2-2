@@ -41,6 +41,7 @@ export const useCart = () => {
     return calculateDiscountTotal(cart);
   };
 
+
   return {
     cart,
     addToCart,
