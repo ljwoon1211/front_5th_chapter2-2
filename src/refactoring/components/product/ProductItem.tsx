@@ -1,5 +1,5 @@
 import { Product } from "../../../types";
-import { getMaxDiscountRate } from "../../models/cart";
+import { getMaxDiscountRate } from "../../models/product";
 import { DiscountList } from "../common/DiscountList";
 // import { DiscountList } from "./DiscountList";
 

@@ -1,4 +1,5 @@
 import { Coupon } from "../../../types";
+import { formatCouponInfo } from "../../models/coupon";
 
 interface CouponListProps {
   coupons: Coupon[];
@@ -15,11 +16,7 @@ export const CouponList = ({ coupons }: CouponListProps) => {
             data-testid={`coupon-${index + 1}`}
             className="bg-gray-100 p-2 rounded"
           >
-            {coupon.name} ({coupon.code}):
-            {coupon.discountType === "amount"
-              ? `${coupon.discountValue}원`
-              : `${coupon.discountValue}%`}{" "}
-            할인
+            {formatCouponInfo(coupon)}
           </div>
         ))}
       </div>

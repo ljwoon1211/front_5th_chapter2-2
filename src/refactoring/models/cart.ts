@@ -1,4 +1,5 @@
 import { CartItem, Coupon, Product } from "../../types";
+import { applyCouponDiscount } from "./coupon";
 
 /**
  * 가격 * 수량
@@ -52,23 +53,12 @@ export const calculateCartTotal = (
     totalAfterDiscount += itemTotal * (1 - discountRate);
   });
 
-  // 쿠폰 적용
-  if (selectedCoupon) {
-    if (selectedCoupon.discountType === "amount") {
-      totalAfterDiscount = Math.max(
-        0,
-        totalAfterDiscount - selectedCoupon.discountValue
-      );
-    } else {
-      totalAfterDiscount *= 1 - selectedCoupon.discountValue / 100;
-    }
-  }
-
-  const totalDiscount = totalBeforeDiscount - totalAfterDiscount;
+  const finalAmount = applyCouponDiscount(totalAfterDiscount, selectedCoupon);
+  const totalDiscount = totalBeforeDiscount - finalAmount;
 
   return {
     totalBeforeDiscount: Math.round(totalBeforeDiscount),
-    totalAfterDiscount: Math.round(totalAfterDiscount),
+    totalAfterDiscount: Math.round(finalAmount),
     totalDiscount: Math.round(totalDiscount),
   };
 };
@@ -106,8 +96,9 @@ export const getRemainingStock = (product: Product, cart: CartItem[]) => {
 };
 
 /**
- * 최대 할인율
+ * 장바구니에서 상품 제거
  */
-export const getMaxDiscountRate = (discounts: { quantity: number; rate: number }[]) => {
-  return discounts.reduce((max, discount) => Math.max(max, discount.rate), 0);
+export const removeCartItem = (cart: CartItem[], productId: string): CartItem[] => {
+  return cart.filter(item => item.product.id !== productId);
 };
+

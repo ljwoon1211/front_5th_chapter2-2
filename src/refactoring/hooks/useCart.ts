@@ -1,13 +1,11 @@
 import { CartItem, Product } from "../../types";
-import { getRemainingStock, updateCartItemQuantity } from "../models/cart";
+import { getRemainingStock, removeCartItem, updateCartItemQuantity } from "../models/cart";
 import { useLocalStorage } from "./useLocalStorage";
 import { useDiscountCalculator } from "./useDiscountCalculator";
 
 
 export const useCart = () => {
-  // const [cart, setCart] = useState<CartItem[]>([]);
   const [cart, setCart] = useLocalStorage<CartItem[]>('cart', []);
-  // const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
   const { selectedCoupon, applyCoupon, calculateDiscountTotal } = useDiscountCalculator()
 
   const addToCart = (product: Product) => {
@@ -28,7 +26,7 @@ export const useCart = () => {
   };
 
   const removeFromCart = (productId: string) => {
-    setCart(prevCart => prevCart.filter(item => item.product.id !== productId));
+    setCart(prevCart => removeCartItem(prevCart, productId));
   };
 
   const updateQuantity = (productId: string, newQuantity: number) => {
