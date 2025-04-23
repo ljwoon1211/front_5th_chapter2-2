@@ -1,12 +1,15 @@
-import { Discount, Product } from "../../types";
+import { Product } from "../../../types";
+import { DiscountForm } from "./DiscountForm";
 
 interface ProductEditProps {
   product: Product;
   editingProduct: Product;
-
+  newDiscount: { quantity: number; rate: number }; // 추가
+  onNewDiscountChange: (discount: { quantity: number; rate: number }) => void; // 추가
   onProductNameUpdate: (productId: string, newName: string) => void;
   onPriceUpdate: (productId: string, newPrice: number) => void;
   onStockUpdate: (productId: string, newStock: number) => void;
+  onAddDiscount: (productId: string) => void; // 이 부분도 누락됨
   onRemoveDiscount: (productId: string, index: number) => void;
   onEditComplete: () => void;
 }
@@ -14,9 +17,12 @@ interface ProductEditProps {
 export const ProductEdit = ({
   product,
   editingProduct,
+  newDiscount,
+  onNewDiscountChange,
   onProductNameUpdate,
   onPriceUpdate,
   onStockUpdate,
+  onAddDiscount,
   onRemoveDiscount,
   onEditComplete,
 }: ProductEditProps) => {
@@ -50,23 +56,15 @@ export const ProductEdit = ({
         />
       </div>
 
-      {/* 할인 정보 수정 부분 */}
-      <div>
-        <h4 className="text-lg font-semibold mb-2">할인 정보</h4>
-        {editingProduct.discounts.map((discount, index) => (
-          <div key={index} className="flex justify-between items-center mb-2">
-            <span>
-              {discount.quantity}개 이상 구매 시 {discount.rate * 100}% 할인
-            </span>
-            <button
-              onClick={() => onRemoveDiscount(product.id, index)}
-              className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-            >
-              삭제
-            </button>
-          </div>
-        ))}
-      </div>
+      <DiscountForm
+        discounts={editingProduct.discounts}
+        newDiscount={newDiscount}
+        productId={product.id}
+        onNewDiscountChange={onNewDiscountChange}
+        onAddDiscount={onAddDiscount}
+        onRemoveDiscount={onRemoveDiscount}
+      />
+
       <button
         onClick={onEditComplete}
         className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 mt-2"
@@ -76,5 +74,3 @@ export const ProductEdit = ({
     </div>
   );
 };
-
-export default ProductEdit;

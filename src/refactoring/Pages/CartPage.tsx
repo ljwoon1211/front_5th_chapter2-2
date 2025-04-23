@@ -1,5 +1,5 @@
 import { Coupon, Product } from "../../types.ts";
-import CartItemList from "../components/CartItemList.tsx";
+import { CartItemList } from "../components/CartItemList.tsx";
 import { CartSummary } from "../components/CartSummary.tsx";
 import { CouponSelector } from "../components/CouponSelector.tsx";
 import { ProductList } from "../components/ProductList.tsx";
