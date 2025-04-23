@@ -2,9 +2,10 @@ import { Coupon, Product } from "../../types.ts";
 import { CartItemList } from "../components/cart/CartItemList.tsx";
 import { CartSummary } from "../components/cart/CartSummary.tsx";
 import { CouponSelector } from "../components/cart/CouponSelector.tsx";
+import { ProductSearch } from "../components/common/ProductSearch.tsx";
 
 import { ProductList } from "../components/product/ProductList.tsx";
-import { useCart } from "../hooks/index.ts";
+import { useCart, useProductSearch } from "../hooks/index.ts";
 
 interface Props {
   products: Product[];
@@ -22,6 +23,9 @@ export const CartPage = ({ products, coupons }: Props) => {
     selectedCoupon,
   } = useCart();
 
+  const { searchTerm, updateSearchTerm, resetSearch, filteredProducts } =
+    useProductSearch(products);
+
   const { totalBeforeDiscount, totalAfterDiscount, totalDiscount } =
     calculateTotal();
 
@@ -31,8 +35,15 @@ export const CartPage = ({ products, coupons }: Props) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <h2 className="text-2xl font-semibold mb-4">상품 목록</h2>
+
+          <ProductSearch
+            searchTerm={searchTerm}
+            onSearchChange={updateSearchTerm}
+            onResetSearch={resetSearch}
+          />
+
           <ProductList
-            products={products}
+            products={filteredProducts}
             cart={cart}
             onAddToCart={addToCart}
           />

@@ -1,5 +1,6 @@
 import { Product } from "../../../types";
-import { useProductManagement } from "../../hooks";
+import { useProductManagement, useProductSearch } from "../../hooks";
+import { ProductSearch } from "../common/ProductSearch";
 import { ProductCard } from "./ProductCard";
 import { ProductForm } from "./ProductForm";
 
@@ -34,6 +35,9 @@ export const ProductManager = ({
     handleAddNewProduct,
   } = useProductManagement(products, onProductUpdate, onProductAdd);
 
+  const { searchTerm, updateSearchTerm, resetSearch, filteredProducts } =
+    useProductSearch(products);
+
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-4">상품 관리</h2>
@@ -53,8 +57,14 @@ export const ProductManager = ({
         />
       )}
 
+      <ProductSearch
+        searchTerm={searchTerm}
+        onSearchChange={updateSearchTerm}
+        onResetSearch={resetSearch}
+      />
+
       <div className="space-y-2">
-        {products.map((product, index) => (
+        {filteredProducts.map((product, index) => (
           <ProductCard
             key={product.id}
             product={product}
