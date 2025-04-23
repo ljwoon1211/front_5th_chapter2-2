@@ -1,5 +1,6 @@
 import { Product } from "../../../types";
 import { getMaxDiscountRate } from "../../models/product";
+import { formatCurrency } from "../../utils/formatCurrency";
 import { DiscountList } from "../common/DiscountList";
 // import { DiscountList } from "./DiscountList";
 
@@ -21,9 +22,7 @@ export const ProductItem = ({
     >
       <div className="flex justify-between items-center mb-2">
         <span className="font-semibold">{product.name}</span>
-        <span className="text-gray-600">
-          {product.price.toLocaleString()}원
-        </span>
+        <span className="text-gray-600">{formatCurrency(product.price)}</span>
       </div>
       <div className="text-sm text-gray-500 mb-2">
         <span
