@@ -1,5 +1,5 @@
 import { Coupon } from "../../../types";
-import { getDiscountValueText } from "../../models/coupon";
+import { formatCouponInfo, formatDiscountValue } from "../../utils/formatUtils";
 
 interface CouponSelectorProps {
   coupons: Coupon[];
@@ -21,15 +21,13 @@ export const CouponSelector = ({
         <option value="">쿠폰 선택</option>
         {coupons.map((coupon, index) => (
           <option key={coupon.code} value={index}>
-            {coupon.name} - {getDiscountValueText(coupon)}
+            {coupon.name} - {formatDiscountValue(coupon)}
           </option>
         ))}
       </select>
       {selectedCoupon && (
         <p className="text-green-600">
-          적용된 쿠폰: {selectedCoupon.name}(
-          {selectedCoupon.discountType === getDiscountValueText(selectedCoupon)}{" "}
-          할인)
+          적용된 쿠폰: {formatCouponInfo(selectedCoupon)}
         </p>
       )}
     </div>

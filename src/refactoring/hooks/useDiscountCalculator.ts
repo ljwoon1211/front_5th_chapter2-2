@@ -19,9 +19,9 @@ export const useDiscountCalculator = () => {
   /**
    * 장바구니의 최종 금액을 계산
    */
-  const calculateDiscountTotal = (cart: CartItem[]) => {
+  const calculateDiscountTotal = useCallback((cart: CartItem[]) => {
     return calculateCartTotal(cart, selectedCoupon);
-  };
+  }, [selectedCoupon]);
 
   /**
    * 적용된 상품 할인율을 반환
@@ -38,6 +38,7 @@ export const useDiscountCalculator = () => {
     const discountRate = getAppliedProductDiscount(item);
     return baseTotal * discountRate;
   };
+
 
   return {
     applyCoupon,
