@@ -5,11 +5,32 @@ import { PageContainer } from "./components/layout/PageContainer.tsx";
 import { Navbar } from "./components/layout/Navbar.tsx";
 
 const App = () => {
-  const { products, updateProduct, addProduct } = useProducts(initialProducts);
-  const { coupons, addCoupon } = useCoupons(initialCoupons);
+  const {
+    products,
+    loading: productsLoading,
+    error: productsError,
+    updateProduct,
+    addProduct,
+  } = useProducts(initialProducts);
+
+  const {
+    coupons,
+    loading: couponsLoading,
+    error: couponsError,
+    addCoupon,
+  } = useCoupons(initialCoupons);
+
   const [isAdmin, setIsAdmin] = useState(false);
 
   const togglePage = () => setIsAdmin(!isAdmin);
+
+  if (productsLoading || couponsLoading) {
+    return <div>loading...</div>;
+  }
+
+  if (productsError || couponsError) {
+    return <div>{productsError?.message || couponsError?.message}</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">

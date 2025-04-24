@@ -15,6 +15,8 @@ interface Props {
 export const CartPage = ({ products, coupons }: Props) => {
   const {
     cart,
+    loading: cartLoading,
+    error: cartError,
     addToCart,
     removeFromCart,
     updateQuantity,
@@ -25,6 +27,15 @@ export const CartPage = ({ products, coupons }: Props) => {
 
   const { searchTerm, updateSearchTerm, resetSearch, filteredProducts } =
     useProductSearch(products);
+
+  if (cartLoading) {
+    return <div>loading...</div>;
+  }
+
+  // 에러가 있으면 에러 메시지 표시
+  if (cartError) {
+    return <div>{cartError.message}</div>;
+  }
 
   const { totalBeforeDiscount, totalAfterDiscount, totalDiscount } =
     calculateTotal();
