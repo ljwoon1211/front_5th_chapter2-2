@@ -6,8 +6,8 @@
   "scripts": {
     "start:origin": "vite serve --open ./index.origin.html",
     "start:refactoring": "vite serve --open ./index.refactoring.html",
-    "start:advanced": "vite serve --mode test --open ./index.refactoring.html",
-    "start:api-mock": "vite serve --mode api-mock --open ./index.refactoring.html",
+    "start:advanced": "vite serve --open ./index.refactoring.html",
+    "start:api-mock": "vite serve --mode api-mock --open ./index.mock-refactoring.html",
     "test": "vitest",
     "test:origin": "vitest src/origin",
     "test:basic": "vitest src/basic --mode test",
