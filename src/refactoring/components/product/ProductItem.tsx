@@ -1,8 +1,7 @@
 import { Product } from "../../../types";
 import { getMaxDiscountRate } from "../../models/product";
-import { formatPrice } from "../../utils/formatUtils";
+import { formatMaxDiscount, formatPrice } from "../../utils/formatUtils";
 import { DiscountList } from "../common/DiscountList";
-// import { DiscountList } from "./DiscountList";
 
 interface ProductItemProps {
   product: Product;
@@ -34,8 +33,7 @@ export const ProductItem = ({
         </span>
         {product.discounts.length > 0 && (
           <span className="ml-2 font-medium text-blue-600">
-            최대 {(getMaxDiscountRate(product.discounts) * 100).toFixed(0)}%
-            할인
+            {formatMaxDiscount(getMaxDiscountRate(product.discounts))}
           </span>
         )}
       </div>

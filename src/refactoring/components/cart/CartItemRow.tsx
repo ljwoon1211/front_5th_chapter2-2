@@ -1,5 +1,6 @@
 import { CartItem } from "../../../types";
 import { useDiscountCalculator } from "../../hooks";
+import { formatAppliedDiscount } from "../../utils/formatUtils";
 
 interface CartItemRowProps {
   item: CartItem;
@@ -13,6 +14,7 @@ export const CartItemRow = ({
   onRemoveFromCart,
 }: CartItemRowProps) => {
   const { getAppliedProductDiscount } = useDiscountCalculator();
+  const discountRate = getAppliedProductDiscount(item);
 
   return (
     <div className="flex justify-between items-center bg-white p-3 rounded shadow">
@@ -23,7 +25,7 @@ export const CartItemRow = ({
           {item.product.price}원 x {item.quantity}
           {getAppliedProductDiscount(item) > 0 && (
             <span className="text-green-600 ml-1">
-              ({(getAppliedProductDiscount(item) * 100).toFixed(0)}% 할인 적용)
+              {formatAppliedDiscount(discountRate)}
             </span>
           )}
         </span>

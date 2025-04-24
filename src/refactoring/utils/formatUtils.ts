@@ -14,6 +14,27 @@ export const formatPrice = (price: number, currency: string = "원"): string => 
   return `${formatCurrency(price)}${currency}`;
 };
 
+/**
+ * 할인율을 퍼센트 형식으로 포맷팅 (예: 0.1 -> "10%")
+ */
+export const formatDiscountRate = (rate: number): string => {
+  return `${(rate * 100).toFixed(0)}%`;
+};
+
+/**
+ * 적용된 할인율 메시지 (예: "(10% 할인 적용)")
+ */
+export const formatAppliedDiscount = (rate: number): string => {
+  return `(${formatDiscountRate(rate)} 할인 적용)`;
+};
+
+/**
+ * 최대 할인율 메시지 (예: "최대 10% 할인")
+ */
+export const formatMaxDiscount = (rate: number): string => {
+  return `최대 ${formatDiscountRate(rate)} 할인`;
+};
+
 
 /**
  * 쿠폰 정보 표시 텍스트
@@ -31,3 +52,4 @@ export const formatDiscountValue = (coupon: Coupon): string => {
     ? formatCurrency(coupon.discountValue)
     : `${coupon.discountValue}%`;
 };
+
