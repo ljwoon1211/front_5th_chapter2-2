@@ -1,5 +1,5 @@
-import { Product } from "../../../types";
-import { FormField } from "../common/FormField";
+import { Product } from "../../../../types";
+import { FormField } from "../../ui/FormField";
 
 interface ProductFormProps {
   product: Omit<Product, "id"> | Product;

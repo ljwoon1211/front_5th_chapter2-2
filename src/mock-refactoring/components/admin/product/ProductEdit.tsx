@@ -1,5 +1,5 @@
-import { Product } from "../../../types";
-import { DiscountForm } from "./DiscountForm";
+import { Product } from "../../../../types";
+import { DiscountForm } from "./discount/DiscountForm";
 
 interface ProductEditProps {
   product: Product;

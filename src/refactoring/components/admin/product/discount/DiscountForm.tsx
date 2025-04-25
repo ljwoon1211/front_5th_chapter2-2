@@ -1,5 +1,5 @@
-import { Discount } from "../../../types";
-import { DiscountList } from "../common/DiscountList";
+import { Discount } from "../../../../../types";
+import { DiscountList } from "../../../common/DiscountList";
 
 interface DiscountFormProps {
   discounts: Discount[];

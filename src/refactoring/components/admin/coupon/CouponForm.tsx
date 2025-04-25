@@ -1,5 +1,5 @@
-import { Coupon } from "../../../types";
-import { FormField } from "../common/FormField";
+import { Coupon } from "../../../../types";
+import { FormField } from "../../ui/FormField";
 
 interface CouponFormProps {
   coupon: Coupon;

@@ -1,6 +1,6 @@
-import { Product } from "../../../types";
-import { useProductManagement, useProductSearch } from "../../hooks";
-import { ProductSearch } from "../common/ProductSearch";
+import { Product } from "../../../../types";
+import { useProductManagement, useProductSearch } from "../../../hooks";
+import { ProductSearch } from "../../common/ProductSearch";
 import { ProductCard } from "./ProductCard";
 import { ProductForm } from "./ProductForm";
 

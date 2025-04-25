@@ -18,7 +18,7 @@ import {
 import { applyCouponDiscount } from "../../refactoring/models/coupon";
 import { getMaxDiscountRate } from "../../refactoring/models/product";
 import { ProductSearch } from "../../refactoring/components/common/ProductSearch";
-import { FormField } from "../../refactoring/components/common/FormField";
+import { FormField } from "../../refactoring/components/ui/FormField";
 import { DiscountList } from "../../refactoring/components/common/DiscountList";
 import {
   useDiscountCalculator,

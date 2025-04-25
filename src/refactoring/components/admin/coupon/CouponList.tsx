@@ -1,5 +1,5 @@
-import { Coupon } from "../../../types";
-import { formatCouponInfo } from "../../utils/formatUtils";
+import { Coupon } from "../../../../types";
+import { formatCouponInfo } from "../../../utils/formatUtils";
 
 interface CouponListProps {
   coupons: Coupon[];
